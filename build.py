@@ -115,3 +115,5 @@ open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE_U
 if ADSENSE_ID:
     open(f"{OUT}/ads.txt", "w").write(f"google.com, {ADSENSE_ID.replace('ca-','')}, DIRECT, f08c47fec0942fa0\n")
 print("Done:", len(urls), "pages in", OUT + "/")
+for f in os.listdir("static"):
+    shutil.copy(f"static/{f}", f"{OUT}/{f}")
