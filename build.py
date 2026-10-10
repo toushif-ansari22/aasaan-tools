@@ -117,3 +117,5 @@ if ADSENSE_ID:
 print("Done:", len(urls), "pages in", OUT + "/")
 for f in os.listdir("static"):
     shutil.copy(f"static/{f}", f"{OUT}/{f}")
+for f in os.listdir("static"):
+    shutil.copy(f"static/{f}", f"{OUT}/{f}")
