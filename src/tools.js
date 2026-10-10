@@ -3,7 +3,7 @@ const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
 const num=id=>parseFloat($('#'+id).value)||0;
 const field=(id,label,val,extra='')=>`<div><label for="${id}">${label}</label><input id="${id}" type="number" min="0" step="any" value="${val}" ${extra}></div>`;
 const out=(items)=>'<div class="out">'+items.map(([l,v,h])=>`<div class="${h?'hi':''}"><span>${l}</span><strong>${v}</strong></div>`).join('')+'</div>';
-const calc=(fn)=>setTimeout(()=>{document.querySelectorAll('#view input,#view select').forEach(e=>e.addEventListener('input',fn));fn()},0);
+const calc=(fn)=>setTimeout(()=>{document.querySelectorAll('#tool input,#tool select').forEach(e=>e.addEventListener('input',fn));fn()},0);
 
 const tools=[
 {id:'emi',name:'EMI Calculator',title:'EMI Calculator',sub:'Home, car or personal loan ki monthly EMI nikalo.',
