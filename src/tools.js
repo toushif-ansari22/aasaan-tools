@@ -43,6 +43,31 @@ const tools=[
  init:()=>setTimeout(()=>{const set={u:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',l:'abcdefghijklmnopqrstuvwxyz',d:'0123456789',s:'!@#$%^&*()-_=+[]{}?'};
   const gen=()=>{const pool=Object.keys(set).filter(k=>$('#'+k).checked).map(k=>set[k]).join('');if(!pool){$('#pw').textContent='Kam se kam ek option select karo';return}const n=Math.min(64,Math.max(4,num('n')));const a=new Uint32Array(n);crypto.getRandomValues(a);$('#pw').textContent=[...a].map(x=>pool[x%pool.length]).join('')};
   $('#go').onclick=gen;$('#cp').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText($('#pw').textContent);$('#cp').textContent='Copied';setTimeout(()=>$('#cp').textContent='Copy',1200)};gen()},0),
- about:'Passwords are generated with your browser\'s cryptographic random number generator and are never sent anywhere.'}
+ about:'Passwords are generated with your browser\'s cryptographic random number generator and are never sent anywhere.'},
+{id:'fd',
+ html:()=>`<div class="grid">${field('p','Deposit amount (₹)',100000)}${field('r','Interest rate (% per year)',7)}${field('y','Tenure (years)',5)}</div><div id="o"></div>`,
+ init:()=>calc(()=>{const P=num('p'),r=num('r')/100,y=num('y');const m=P*Math.pow(1+r/4,4*y);$('#o').innerHTML=out([['Maturity amount',inr(m),1],['Interest earned',inr(m-P)],['Amount invested',inr(P)]])})},
+{id:'bmi',
+ html:()=>`<div class="grid">${field('h','Height (cm)',170)}${field('w','Weight (kg)',65)}</div><div id="o"></div>`,
+ init:()=>calc(()=>{const h=num('h')/100,w=num('w');const b=h?w/(h*h):0;const c=b<18.5?'Underweight':b<25?'Normal':b<30?'Overweight':'Obese';$('#o').innerHTML=out([['Your BMI',b.toFixed(1),1],['Category',c]])})},
+{id:'discount',
+ html:()=>`<div class="grid">${field('p','Original price (₹)',2000)}${field('d','Discount (%)',25)}</div><div id="o"></div>`,
+ init:()=>calc(()=>{const p=num('p'),d=num('d');const s=p*d/100;$('#o').innerHTML=out([['Final price',inr(p-s),1],['You save',inr(s)]])})},
+{id:'case',
+ html:()=>`<label for="t">Your text</label><textarea id="t" placeholder="Type or paste text"></textarea><div class="row"><button class="btn" data-m="u">UPPERCASE</button><button class="btn" data-m="l">lowercase</button><button class="btn" data-m="t">Title Case</button><button class="btn" data-m="s">Sentence case</button><button class="btn alt" id="cp">Copy text</button></div>`,
+ init:()=>setTimeout(()=>{const t=$('#t');const f={u:s=>s.toUpperCase(),l:s=>s.toLowerCase(),t:s=>s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase()),s:s=>s.toLowerCase().replace(/(^\s*|[.!?]\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase())};
+  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{t.value=f[b.dataset.m](t.value)});
+  $('#cp').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(t.value);$('#cp').textContent='Copied';setTimeout(()=>$('#cp').textContent='Copy text',1200)}},0)},
+{id:'json',
+ html:()=>`<label for="t">Paste JSON</label><textarea id="t" placeholder='{"name":"Aasaan"}'></textarea><div class="row"><button class="btn" id="f">Format</button><button class="btn" id="m">Minify</button><button class="btn alt" id="cp">Copy</button></div><div id="o"></div>`,
+ init:()=>setTimeout(()=>{const t=$('#t');const run=sp=>{try{t.value=JSON.stringify(JSON.parse(t.value),null,sp);$('#o').innerHTML=out([['Status','Valid JSON',1]])}catch(e){$('#o').textContent='Error: '+e.message}};
+  $('#f').onclick=()=>run(2);$('#m').onclick=()=>run(0);
+  $('#cp').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(t.value);$('#cp').textContent='Copied';setTimeout(()=>$('#cp').textContent='Copy',1200)}},0)},
+{id:'unit',
+ html:()=>`<div class="grid"><div><label for="c">Type</label><select id="c"><option value="len">Length</option><option value="wt">Weight</option><option value="tmp">Temperature</option></select></div>${field('v','Value',1)}<div><label for="a">From</label><select id="a"></select></div><div><label for="b">To</label><select id="b"></select></div></div><div id="o"></div>`,
+ init:()=>setTimeout(()=>{const U={len:{m:1,km:1000,cm:.01,mm:.001,mile:1609.344,yard:.9144,foot:.3048,inch:.0254},wt:{kg:1,g:.001,mg:1e-6,tonne:1000,lb:.45359237,oz:.028349523}};const T=['celsius','fahrenheit','kelvin'];
+  const fill=()=>{const c=$('#c').value;const o=U[c]?Object.keys(U[c]):T;['a','b'].forEach((id,i)=>{$('#'+id).innerHTML=o.map(x=>`<option>${x}</option>`).join('');$('#'+id).selectedIndex=i})};
+  const go=()=>{const v=num('v'),a=$('#a').value,b=$('#b').value,c=$('#c').value;let r;if(c==='tmp'){const C=a==='celsius'?v:a==='fahrenheit'?(v-32)*5/9:v-273.15;r=b==='celsius'?C:b==='fahrenheit'?C*9/5+32:C+273.15}else r=v*U[c][a]/U[c][b];$('#o').innerHTML=out([[`${v} ${a} =`,(+r.toPrecision(8)).toLocaleString('en-IN',{maximumFractionDigits:8})+' '+b,1]])};
+  $('#c').addEventListener('input',()=>{fill();go()});['v','a','b'].forEach(id=>$('#'+id).addEventListener('input',go));fill();go()},0)}
 ];
 

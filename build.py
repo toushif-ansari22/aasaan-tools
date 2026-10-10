@@ -45,6 +45,30 @@ M = [
  "Choose a length and character types, then generate a strong random password.",
  "Passwords are created with your browser's cryptographic random number generator. Use at least 12 characters and a different password for every account.",
  "Are generated passwords stored?","No. They are generated on your device and never sent or saved anywhere."),
+("fd","fd-calculator","FD Calculator","Free FD calculator. Find the maturity amount and interest earned on a fixed deposit with quarterly compounding.",
+ "Enter your deposit, interest rate and tenure to see the maturity amount of your fixed deposit.",
+ "Maturity = P × (1 + r/4)^(4n), where P is the deposit, r the annual interest rate and n the years. Most Indian banks compound FD interest quarterly. Tax (TDS) is not included.",
+ "Is FD interest compounded quarterly?","In most Indian banks, yes. Some banks offer monthly or yearly payout options, which give slightly different results."),
+("bmi","bmi-calculator","BMI Calculator","Free BMI calculator. Enter your height in cm and weight in kg to get your Body Mass Index and category.",
+ "Enter your height and weight to see your BMI and the standard category.",
+ "BMI = weight in kg ÷ (height in metres)². Below 18.5 is underweight, 18.5 to 24.9 is normal, 25 to 29.9 is overweight and 30 or more is obese.",
+ "Is BMI a medical diagnosis?","No. BMI is a general screening number and does not consider muscle, age or body type. Talk to a doctor for health advice."),
+("discount","discount-calculator","Discount Calculator","Free discount calculator. Find the final price and how much you save after a percentage discount.",
+ "Enter the original price and the discount percentage to see the final price and your savings.",
+ "Savings = price × discount ÷ 100. Final price = price − savings. Use it for sales, festival offers and quick price checks.",
+ "How do I add GST after a discount?","First get the discounted price here, then enter it in the GST calculator with Add GST selected."),
+("case","text-case-converter","Text Case Converter","Free text case converter. Change text to UPPERCASE, lowercase, Title Case or Sentence case in one click.",
+ "Paste your text and click a button to change its case. Then copy the result.",
+ "UPPERCASE and lowercase change every letter. Title Case capitalises the first letter of each word. Sentence case capitalises the first letter of each sentence.",
+ "Does it work with Hindi text?","Hindi has no upper or lower case, so only English letters change. Hindi text stays as it is."),
+("json","json-formatter","JSON Formatter","Free JSON formatter and validator. Beautify, minify and check JSON online in your browser.",
+ "Paste JSON, then format it for reading, minify it for size, or check if it is valid.",
+ "The tool parses your JSON in the browser. If it is valid, it is rewritten with indentation or compressed. If not, you see the error message from the parser.",
+ "Is my JSON sent to a server?","No. Everything runs in your browser, so your data stays on your device."),
+("unit","unit-converter","Unit Converter","Free unit converter for length, weight and temperature. Convert km to miles, kg to lb, Celsius to Fahrenheit and more.",
+ "Choose a type, enter a value and pick the units to convert between.",
+ "Length and weight use fixed conversion factors to a base unit (metre and kilogram). Temperature uses the standard Celsius, Fahrenheit and Kelvin formulas.",
+ "How many feet are in a metre?","One metre is about 3.2808 feet. Choose Length, then metre to foot."),
 ]
 SLUG = {m[0]: m[1] for m in M}
 
@@ -95,7 +119,7 @@ for id_, slug, name, desc, intro, how, fq, fa in M:
 cards = "".join(f'<a class="card" href="{m[1]}.html"><h2>{m[2]}</h2><p>{m[4]}</p></a>' for m in M)
 page("index.html", f"{NAME} – Free EMI, GST, SIP, Age Calculator & Image Resizer",
      "Free online tools for India: EMI calculator, GST calculator, SIP calculator, age calculator, image resizer, word counter and password generator.",
-     f'<main class="wrap one"><h1>Free online tools for everyday work</h1><p class="sub">Calculators and utilities that load fast and work on any phone. Pick a tool to start.</p><div class="cards">{cards}</div></main>')
+     f'<main class="wrap one"><h1>Free online tools for everyday work</h1><p class="sub">Calculators and utilities that load fast and work on any phone. Pick a tool to start.</p><input id="q" type="search" placeholder="Search tools (EMI, GST, BMI...)" aria-label="Search tools" style="margin-top:18px"><div class="cards" id="cards">{cards}</div><script>document.getElementById("q").oninput=e=>{{const v=e.target.value.toLowerCase();document.querySelectorAll("#cards .card").forEach(c=>{{c.style.display=c.textContent.toLowerCase().includes(v)?"":"none"}})}};</script></main>')
 
 # legal pages
 page("about.html", f"About | {NAME}", f"About {NAME}.",
@@ -115,7 +139,6 @@ open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE_U
 if ADSENSE_ID:
     open(f"{OUT}/ads.txt", "w").write(f"google.com, {ADSENSE_ID.replace('ca-','')}, DIRECT, f08c47fec0942fa0\n")
 print("Done:", len(urls), "pages in", OUT + "/")
-for f in os.listdir("static"):
-    shutil.copy(f"static/{f}", f"{OUT}/{f}")
-for f in os.listdir("static"):
-    shutil.copy(f"static/{f}", f"{OUT}/{f}")
+if os.path.isdir("static"):
+    for f in os.listdir("static"):
+        shutil.copy(f"static/{f}", f"{OUT}/{f}")
