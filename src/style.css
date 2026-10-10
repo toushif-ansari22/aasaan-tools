@@ -1,0 +1,53 @@
+:root{--bg:#eef2f6;--card:#fff;--ink:#14213d;--mute:#5b6b82;--line:#d5dde8;--accent:#f2a900;--teal:#0f766e;--r:14px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Figtree,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',Figtree,sans-serif;line-height:1.15;margin:0}
+header{background:var(--ink);color:#fff;padding:28px 20px 32px}
+.wrap{max-width:1080px;margin:0 auto}
+.logo{font:800 1.5rem 'Bricolage Grotesque',sans-serif;letter-spacing:-.02em}
+.logo b{color:var(--accent)}
+header p{margin:10px 0 0;color:#b9c4d6;max-width:56ch}
+main.wrap{display:grid;grid-template-columns:230px 1fr;gap:24px;padding:24px 20px 60px}
+nav{position:sticky;top:16px;align-self:start;display:flex;flex-direction:column;gap:4px}
+nav a{padding:10px 14px;border-radius:10px;color:var(--ink);text-decoration:none;font-weight:600;border-left:4px solid transparent}
+nav a:hover{background:#fff}
+nav a.on{background:#fff;border-left-color:var(--accent)}
+nav a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+.panel h2{font-size:1.9rem;margin-bottom:6px}
+.sub{color:var(--mute);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+label{display:block;font-weight:600;font-size:.9rem;margin-bottom:5px}
+input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:170px;resize:vertical}
+.btn{margin-top:18px;background:var(--ink);color:#fff;border:0;padding:12px 22px;border-radius:10px;font:600 1rem Figtree,sans-serif;cursor:pointer}
+.btn:hover{background:#22345f}
+.btn.alt{background:var(--accent);color:var(--ink)}
+.out{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.out div{background:var(--bg);border-radius:12px;padding:14px 16px}
+.out span{display:block;color:var(--mute);font-size:.85rem}
+.out strong{font:800 1.45rem 'Bricolage Grotesque',sans-serif}
+.out .hi{background:var(--ink);color:#fff}.out .hi span{color:#b9c4d6}.out .hi strong{color:var(--accent)}
+.ad{margin:22px 0 0;min-height:90px;border:1.5px dashed var(--line);border-radius:12px;display:grid;place-items:center;color:var(--mute);font-size:.85rem}
+.about{margin-top:26px;color:var(--mute);font-size:.95rem;max-width:70ch}
+.about h3{font-size:1.1rem;color:var(--ink);margin-bottom:6px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.row label{margin:0;font-weight:500}
+.row input[type=checkbox]{width:auto}
+.pw{font:600 1.3rem ui-monospace,Menlo,monospace;background:var(--bg);padding:16px;border-radius:12px;word-break:break-all;margin-top:18px}
+footer{text-align:center;color:var(--mute);font-size:.85rem;padding:0 20px 40px}
+footer a{color:var(--mute)}
+@media(max-width:780px){main.wrap{grid-template-columns:1fr}nav{position:static;flex-direction:row;overflow-x:auto;padding-bottom:4px}nav a{white-space:nowrap;border-left:0;border-bottom:4px solid transparent}nav a.on{border-bottom-color:var(--accent)}.panel{padding:20px}}
+h1{font-family:'Bricolage Grotesque',Figtree,sans-serif;line-height:1.15;margin:0}
+a.logo{color:#fff;text-decoration:none;display:inline-block}
+.panel h1{font-size:1.9rem;margin-bottom:6px}
+.about h2{font-size:1.1rem;color:var(--ink);margin:18px 0 6px}
+.about h3{font-size:1rem;margin:12px 0 2px}
+main.wrap.one{display:block;max-width:780px}
+.one h1{font-size:2.2rem;margin-bottom:12px}.one h2{font-size:1.3rem;margin:24px 0 6px}
+.one p,.one li{max-width:68ch}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;text-decoration:none;color:var(--ink);border-top:4px solid var(--accent)}
+.card:hover{border-top-color:var(--teal)}
+.card h2{font-size:1.2rem;margin:0 0 6px}.card p{margin:0;color:var(--mute);font-size:.95rem}
